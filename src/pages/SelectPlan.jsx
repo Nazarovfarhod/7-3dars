@@ -3,8 +3,14 @@ import arcade from "../../public/images/icon-arcade.svg";
 import advance from "../../public/images/icon-advanced.svg";
 import Pro from "../../public/images/icon-pro.svg";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function SelectPlan() {
+  const [checkPlan, setCheckPlan] = useState("");
+  const handlePlan = (plan) => {
+    setCheckPlan(plan);
+  };
+
   return (
     <div className="pt-14 w-full">
       <h1 className="text-4xl font-bold mb-3">Select your plan</h1>
@@ -12,21 +18,36 @@ function SelectPlan() {
         You have the option of monthly or yearly billing.
       </p>
       <div className="flex  mb-8 w-full gap-4">
-        <button className="card border-2 active:border-purple-600 bg-base-100 pt-5 px-4 pb-4 w-[138px] shadow-xl">
+        <div
+          onClick={() => handlePlan("arcade")}
+          className={`card cursor-pointer border-2  bg-base-100 pt-5 px-4 pb-4 w-[138px] shadow-xl ${
+            checkPlan === "arcade" ? "border border-violet-600" : ""
+          }`}
+        >
           <img className="w-10 mb-10" src={arcade} alt="" />
           <h2>Arcade</h2>
           <p>$9/mo</p>
-        </button>
-        <button className="card active:border-purple-600 border-2 bg-base-100 pt-5 px-4 pb-4 w-[138px] shadow-xl">
+        </div>
+        <div
+          onClick={() => handlePlan("advanced")}
+          className={`card  border-2 bg-base-100 pt-5 px-4 pb-4 w-[138px] shadow-xl ${
+            checkPlan === "advanced" ? "border border-violet-600" : ""
+          }`}
+        >
           <img className="w-10 mb-10" src={advance} alt="" />
           <h2>Advanced</h2>
           <p>$12/mo</p>
-        </button>
-        <button className="card active:border-purple-600 border-2 bg-base-100 pt-5 px-4 pb-4 w-[138px] shadow-xl">
+        </div>
+        <div
+          onClick={() => handlePlan("pro")}
+          className={`card  border-2 bg-base-100 pt-5 px-4 pb-4 w-[138px] shadow-xl ${
+            checkPlan === "pro" ? "border border-violet-600" : ""
+          }`}
+        >
           <img className="w-10 mb-10" src={Pro} alt="" />
           <h2>Pro</h2>
           <p>$15/mo</p>
-        </button>
+        </div>
       </div>
       <div className="flex items-center justify-center mb-32 py-3 rounded-lg bg-[#F8F9FF] gap-6">
         <p className="text-xl font-semibold">Monthly</p>
@@ -45,7 +66,9 @@ function SelectPlan() {
         <p className="text-xl font-semibold">Yearly</p>
       </div>
       <div className="flex items-center justify-between">
-        <Link to="/" className="opacity-50 font-medium hover:opacity-100">Go Back</Link>
+        <Link to="/" className="opacity-50 font-medium hover:opacity-100">
+          Go Back
+        </Link>
         <div>
           <Link
             to="/pickAddOns"
